@@ -1,0 +1,38 @@
+<div class="row ml-0 mt-3">
+  <h2>Orders</h2>
+</div>
+<div class="row ml-0 mt-2">
+  <p>Your past orders are listed below:</p>
+</div>
+<div class="row ml-0">
+  <p id="notice"><%= notice %></p>
+</div>
+<div class="row ml-0">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Show</th>
+      <th scope="col">Order Date</th>
+      <th scope="col">Operations</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= link_to 'Show', order %></td>
+        <td><%= order.created_at %></td>
+        <td><%= link_to order, remote: true, class: ['btn', 'btn-danger'], data: { confirm: 'Are you sure?' }, method: :delete do%>
+            <i class="far fa-minus-square"></i>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<div class="row ml-2 mt-0">
+  <%== render partial: 'pagy/bootstrap_nav', locals: {pagy: @pagy} %>
+</div>
+

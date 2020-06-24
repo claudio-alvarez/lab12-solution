@@ -1,0 +1,13 @@
+<div class="new-ticket-type-otf">
+<%= fields_for 'event[ticket_types_attributes]', ticket_type, index: Time.now.utc.to_formatted_s(:number) do |ticket_type_form| %>
+  <%= ticket_type_form.label :description %>
+  <%= ticket_type_form.text_field :description, class: "form-control" %>
+  <%= ticket_type_form.label :ticket_price %>
+  <%= ticket_type_form.text_field :ticket_price, class: "form-control" %>
+  <br>
+    <button type="button" class="btn btn-danger remove-ticket-type-btn-otf">
+      <i class="far fa-minus-square"></i>
+    </button>
+  <hr>
+<% end %>
+</div>

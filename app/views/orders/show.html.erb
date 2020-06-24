@@ -1,0 +1,37 @@
+<div class="row ml-0 mt-3">
+  <h2>Order ID: <%=@order.id %></h2>
+</div>
+<div class="row ml-0 mt-3">
+  <h4>Date: <%=@order.created_at.strftime("%d/%m/%Y %T") %> </h4>
+</div>
+<div class="row ml-0 mt-3">
+  <p>Your order items:</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Event</th>
+        <th>Ticket Type</th>
+        <th>Price</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @items.each do |item|%>
+      <tr>
+        <td><%= link_to item[:ticket_type].event.name, item[:ticket_type].event %></td>
+        <td><%= item[:ticket_type].description %></td>
+        <td><%= item[:amount] %></td>
+        <td><%= item[:total_price] %></td>
+      </tr>
+      <% end %>
+      <tr>
+        <td colspan="2"><strong>Grand Total</strong></td>
+        <td><%= @total_items %></td>
+        <td><%= @total %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="row ml-0 mt-3">
+  <%= link_to 'Back', customer_orders_path, class: ['btn', 'btn-primary'] %>
+</div>

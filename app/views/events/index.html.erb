@@ -1,0 +1,12 @@
+<div class="row ml-0 mt-3">
+  <h2>Events</h2>
+</div>
+<div class="row ml-0 mt-2">
+  <p>We've got plenty of exciting events for you to watch online amidst the current COVID-19 season!</p>
+</div>
+<% if admin_signed_in? %>
+<div class="row ml-0 mt-2 mb-3">
+  <%= link_to "Add Event", new_event_path, class: ["btn", "btn-primary"] %>
+</div>
+<% end %>
+<%= render partial: 'events/event_list', locals: { events: @events } %>

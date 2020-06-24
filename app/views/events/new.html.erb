@@ -1,0 +1,13 @@
+<div class="row ml-0 mt-3">
+  <h2>New Event</h2>
+</div>
+<div class="row ml-0 mt-2">
+  <p>Please enter the required information to create a new Event:</p>
+</div>
+<%= render partial: "form",
+           locals: {
+               event: @event,
+               submit_btn_text: "Create",
+               ticket_type_section_title: "Add a ticket type",
+               ticket_type_instruction_text: "You need to add a ticket type to your newly created event"
+    } %>

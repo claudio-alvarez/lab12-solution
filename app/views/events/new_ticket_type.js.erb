@@ -1,0 +1,26 @@
+(() => {
+  let nestedForms = document.querySelector("#ticket-type-nested-forms");
+  new Promise((resolve, reject) => {
+      nestedForms.insertAdjacentHTML("beforeend",
+          "<%= j render partial: 'events/ticket_type_form', locals: { ticket_type: @ticket_type } %>")
+      resolve();
+  }).then(() => {
+      // TODO: COMPLETE THIS FUNCTION
+      // Steps:
+      // 1. Use the DOM API to find the last red button in the page (class .remove-ticket-type-btn-otf)
+      // 2. Add a click event handler to the button that does the following:
+      // Finds the closest div element to the button with class .new-ticket-type-otf
+      // 3. Removes that element from its parent.
+      // If you accomplish the above steps, the red buttons in the event form will allow
+      // removing the form input elements that have been added on the fly.
+    let btns = nestedForms.querySelectorAll(".remove-ticket-type-btn-otf");
+    let btn = Array.prototype.slice.call(btns).pop();
+    btn.addEventListener("click", ev => {
+        let parent = ev.target.closest(".new-ticket-type-otf");
+        nestedForms.removeChild(parent);
+        ev.preventDefault();
+    })
+  }).catch(() => {
+    console.log("Error registering event handler for button.");
+  })
+})()

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lab Assignment 12</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <header>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <%= link_to "Ticket Shop", root_path, class: "navbar-brand" %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample03">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><%= link_to "Events", events_path, class: "nav-link" %></li>
+        <% if customer_signed_in? %>
+        <li class="nav-item"><%= link_to "Orders", customer_orders_path, class: "nav-link" %></li>
+        <%end %>
+      </ul>
+      <form class="form-inline mr-3" id="search_form">
+        <input class="form-control mr-sm-2" id="search_box" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" id="search_button" type="submit">Search</button>
+      </form>
+      <% if customer_signed_in? %>
+      <span class="d-inline card p-1 shopping_cart">
+        <%= content_tag :a, { href: shopping_cart_path } do %>
+          <%= image_tag("cart.svg", width: "24em") %>
+          <% unless cart_item_count == 0%>
+          <span class="badge badge-danger"><%= cart_item_count %></span>
+          <% end %>
+        <% end %>
+      </span>
+      <% end %>
+      <span class="d-inline ml-3">
+        <% if admin_signed_in? %>
+        <%=link_to "Sign out", destroy_admin_session_path, method: :delete %>
+        <% elsif !customer_signed_in? %>
+        <%=link_to "Sign in", new_customer_session_path %> | <%=link_to "Sign up", new_customer_registration_path %>
+        <% elsif customer_signed_in? %>
+        <%=link_to "Sign out", destroy_customer_session_path, method: :delete %>
+        <% end %>
+      </span>
+    </div>
+  </nav>
+  </header>
+  <div class="container-fluid">
+    <div class="row">
+      <aside class="col-sm-2" id="customer_info">
+        <% if customer_signed_in? %>
+          <%= render partial: "customers/customer", object: @current_customer %>
+        <% elsif admin_signed_in? %>
+          <%= render partial: "admins/sessions/admin" %>
+        <% end %>
+      </aside>
+      <main class="col-sm-10" id="main_content">
+        <% if notice.present? %>
+          <%= render partial: "notice" %>
+        <% end %>
+        <% if alert.present? %>
+          <%= render partial: "alert" %>
+        <% end %>
+        <%= yield %>
+      </main>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="container">
+      <p class="float-right">
+        <a href="#">Back to top</a>
+      </p>
+      <span class="text-muted">
+        <p>WebTech Lab 12 Starter Code is distributed under the <a href="https://opensource.org/licenses/MIT">MIT license.</a><br>Contact us at: help@ticketshop.com</p>
+      </span>
+    </div>
+  </footer>
+  </body>
+</html>
